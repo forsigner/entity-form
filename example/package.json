@@ -7,8 +7,19 @@
     "start": "parcel index.html",
     "build": "parcel build index.html"
   },
+  "prettier": {
+    "semi": false,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 100
+  },
   "dependencies": {
-    "react-app-polyfill": "^1.0.0"
+    "antd": "^4.1.4",
+    "lodash.get": "^4.4.2",
+    "lodash.topath": "^4.5.2",
+    "react-app-polyfill": "^1.0.0",
+    "stook-graphql": "^0.2.8"
   },
   "alias": {
     "react": "../node_modules/react",
@@ -16,6 +27,7 @@
     "scheduler/tracing": "../node_modules/scheduler/tracing-profiling"
   },
   "devDependencies": {
+    "@types/lodash.topath": "^4.5.6",
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.8.4",
     "parcel": "^1.12.3",
