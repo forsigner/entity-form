@@ -1,6 +1,5 @@
 {
-  "version": "0.1.0",
-  "license": "MIT",
+  "version": "0.0.1",
   "name": "entity-form",
   "author": "forsigner",
   "module": "dist/entity-form.esm.js",
@@ -10,6 +9,7 @@
     "dist",
     "src"
   ],
+  "license": "MIT",
   "engines": {
     "node": ">=10"
   },
