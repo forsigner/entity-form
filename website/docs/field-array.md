@@ -1,7 +1,7 @@
 ---
-id: intro
-title: 简介
-sidebar_label: 简介
+id: field-array
+title: field-array
+sidebar_label: field-array
 ---
 
 让表单开发不在苦恼

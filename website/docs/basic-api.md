@@ -1,7 +1,7 @@
 ---
-id: entity-form
-title: entity-form
-sidebar_label: <EntityForm />
+id: basic-api
+title: basic-api
+sidebar_label: basic-api
 ---
 
 `entity-form` 使用装饰器来校验字段：

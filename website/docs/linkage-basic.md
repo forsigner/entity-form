@@ -1,7 +1,7 @@
 ---
-id: intro
-title: 简介
-sidebar_label: 简介
+id: linkage-basic
+title: linkage-basic
+sidebar_label: linkage-basic
 ---
 
 让表单开发不在苦恼

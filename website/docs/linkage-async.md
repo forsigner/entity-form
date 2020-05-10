@@ -1,7 +1,7 @@
 ---
-id: intro
-title: 简介
-sidebar_label: 简介
+id: linkage-async
+title: linkage-async
+sidebar_label: linkage-async
 ---
 
 让表单开发不在苦恼

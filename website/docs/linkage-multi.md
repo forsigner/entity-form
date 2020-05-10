@@ -1,7 +1,7 @@
 ---
-id: intro
-title: 简介
-sidebar_label: 简介
+id:  linkage-multi
+title:  linkage-multi
+sidebar_label:  linkage-multi
 ---
 
 让表单开发不在苦恼
