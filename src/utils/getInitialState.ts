@@ -34,7 +34,7 @@ function getState(fields: FieldMetadata[], state: FormState, parent = '') {
   for (const field of fields) {
     const name = parent ? `${parent}.${field.name}` : field.name
     if (!field.isRef) {
-      const options = typeof field.enums === 'function' ? field.enums() : field.enums || []
+      const enumData = typeof field.enum === 'function' ? field.enum() : field.enum || []
       const visible = Reflect.has(field, 'visible') ? field.visible : true
       const display = Reflect.has(field, 'display') ? field.display : true
       const touched = Reflect.has(field, 'touched') ? field.touched : false
@@ -48,7 +48,7 @@ function getState(fields: FieldMetadata[], state: FormState, parent = '') {
       set(state.toucheds, name, touched)
       set(state.statuses, name, status)
       set(state.errors, name, error)
-      set(state.enums, name, options)
+      set(state.enums, name, enumData)
       set(state.datas, name, data)
       continue
     }
