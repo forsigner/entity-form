@@ -5,8 +5,11 @@ import { FieldConfig, FieldMetadata } from '../types'
 
 export declare type TypeFn = (returns?: void) => any
 
-export function field(config?: FieldConfig): PropertyDecorator
-export function field(typeFn?: TypeFn, config?: FieldConfig): PropertyDecorator
+export function field<ComponentProps>(config?: FieldConfig<ComponentProps>): PropertyDecorator
+export function field<ComponentProps>(
+  typeFn?: TypeFn,
+  config?: FieldConfig<ComponentProps>,
+): PropertyDecorator
 export function field(typeFn?: any, config?: any): PropertyDecorator {
   const isRef = typeof typeFn === 'function'
 

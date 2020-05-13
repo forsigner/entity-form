@@ -2,11 +2,12 @@ import produce from 'immer'
 import { Dispatch, Action, getState } from 'stook'
 import isEqual from 'react-fast-compare'
 import set from 'lodash.set'
-import { FormState, Errors, Toucheds, Visibles, Enums } from '../types'
+import { FormState, Errors, Toucheds, Visibles } from '../types'
 import { Validator } from '../Validator'
 import { checkValid, touchAll } from '../utils'
 
 type ValuesFn<T> = T | ((prev: T) => T) | ((prev: T) => void)
+type EnumsFn<T> = T | ((prev: T) => T) | ((prev: T) => void)
 
 export class ActionBuilder<T> {
   constructor(
@@ -71,8 +72,8 @@ export class ActionBuilder<T> {
     this.runFn(fn, 'values')
   }
 
-  setOptions = (fn: (options: Enums) => void) => {
-    this.runFn(fn, 'options')
+  setEnums = (fn: EnumsFn<T>) => {
+    this.runFn(fn, 'enums')
   }
 
   setFormState = this.setState

@@ -1,42 +1,90 @@
 import React from 'react'
 import { Dispatch, Action } from 'stook'
 import { HandlerBuilder } from './builders/HandlerBuilder'
-import { HelperBuilder } from 'builders/HelperBuilder'
+import { HelperBuilder } from './builders/HelperBuilder'
 
 export type FieldElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
 
 type Status = 'editable' | 'disabled' | 'preview'
 
 export type Errors<T = any> = {
-  [K in keyof T]?: T[K] extends object ? Errors<T[K]> : string
+  [K in keyof T]?: T[K] extends any[]
+    ? T[K][number] extends object
+      ? Errors<T[K][number]>[] | string | string[]
+      : string | string[]
+    : T[K] extends object
+    ? Errors<T[K]>
+    : string
 }
 
 export type Toucheds<T = any> = {
-  [K in keyof T]?: T[K] extends object ? Toucheds<T[K]> : boolean
+  [K in keyof T]?: T[K] extends any[]
+    ? T[K][number] extends object
+      ? Toucheds<T[K][number]>[]
+      : boolean
+    : T[K] extends object
+    ? Toucheds<T[K]>
+    : boolean
 }
 
 export type Statuses<T = any> = {
-  [K in keyof T]?: T[K] extends object ? Statuses<T[K]> : Status
+  [K in keyof T]?: T[K] extends any[]
+    ? T[K][number] extends object
+      ? Statuses<T[K][number]>[]
+      : Status
+    : T[K] extends object
+    ? Statuses<T[K]>
+    : Status
 }
 
 export type Visibles<T = any> = {
-  [K in keyof T]?: T[K] extends object ? Visibles<T[K]> : boolean
+  [K in keyof T]?: T[K] extends any[]
+    ? T[K][number] extends object
+      ? Visibles<T[K][number]>[]
+      : boolean
+    : T[K] extends object
+    ? Visibles<T[K]>
+    : boolean
 }
 
 export type Penddings<T = any> = {
-  [K in keyof T]?: T[K] extends object ? Penddings<T[K]> : boolean
+  [K in keyof T]?: T[K] extends any[]
+    ? T[K][number] extends object
+      ? Penddings<T[K][number]>[]
+      : boolean
+    : T[K] extends object
+    ? Penddings<T[K]>
+    : boolean
 }
 
 export type Displays<T = any> = {
-  [K in keyof T]?: T[K] extends object ? Displays<T[K]> : boolean
+  [K in keyof T]?: T[K] extends any[]
+    ? T[K][number] extends object
+      ? Displays<T[K][number]>[]
+      : boolean
+    : T[K] extends object
+    ? Displays<T[K]>
+    : boolean
 }
 
 export type Enums<T = any> = {
-  [K in keyof T]?: T[K] extends object ? Enums<T[K]> : Enum
+  [K in keyof T]?: T[K] extends any[]
+    ? T[K][number] extends object
+      ? Enums<T[K][number]>[]
+      : Enum
+    : T[K] extends object
+    ? Enums<T[K]>
+    : Enum
 }
 
-export type Datas<T = any> = {
-  [K in keyof T]?: T[K] extends object ? Datas<T[K]> : any
+export type Datas<T=any> = {
+  [K in keyof T]?: T[K] extends any[]
+    ? T[K][number] extends object
+      ? Datas<T[K][number]>[]
+      : any
+    : T[K] extends object
+    ? Datas<T[K]>
+    : any
 }
 
 export interface EntityType<T = any> {
@@ -164,11 +212,18 @@ export interface GqlConfig {
   mapToEnum: MapToEnum | ((data: any) => Enum)
 }
 
-export interface FieldConfig {
+export interface EntityConfig {
+  formProps: {
+    [key: string]: any
+  }
+}
+
+export interface FieldConfig<ComponentProps = any> {
   label?: string
   showLabel?: boolean
 
   value?: any
+  description?: string
   display?: boolean
   visible?: boolean
   status?: Status
@@ -182,9 +237,7 @@ export interface FieldConfig {
   data?: any
 
   component?: any
-  componentProps?: {
-    [key: string]: any
-  }
+  componentProps?: ComponentProps
 
   gql?: GqlConfig
   [key: string]: any
@@ -214,7 +267,8 @@ export interface RegisterFieldProps extends RegisterProps, FieldHandlers {
 
 export type EnumItem = {
   value: any
-  label: string
+  label: any
+  disabled?: boolean
 }
 
 export type Enum = EnumItem[]

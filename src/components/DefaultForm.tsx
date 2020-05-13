@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { isDOM } from '../utils'
-import { Helper } from '..//Helper'
+import { Helper } from '../Helper'
 import { useFormContext } from '../hooks/useFormContext'
 
 export const DefaultForm: React.FC<any> = props => {

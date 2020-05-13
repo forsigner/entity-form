@@ -52,13 +52,14 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
     setTouched: actionBuilder.setTouched,
     setErrors: actionBuilder.setErrros,
     setVisibles: actionBuilder.setVisibles,
-    setEnums: actionBuilder.setOptions,
+    setEnums: actionBuilder.setEnums,
     setFormState: setState,
     setSubmitting: actionBuilder.setSubmitting,
     resetForm: actionBuilder.resetForm,
+    submitForm: () => {}, // initial
     validateForm: actionBuilder.validateForm,
     validateField: actionBuilder.validateField,
-  } as Actions<T>
+  }
 
   const handlerBuilder = new HandlerBuilder(
     name.current,
