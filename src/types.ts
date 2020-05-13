@@ -77,7 +77,7 @@ export type Enums<T = any> = {
     : Enum
 }
 
-export type Datas<T=any> = {
+export type Datas<T = any> = {
   [K in keyof T]?: T[K] extends any[]
     ? T[K][number] extends object
       ? Datas<T[K][number]>[]
@@ -120,6 +120,10 @@ export interface FormState<T = any> {
   valid: boolean
   submitCount: number
   status: Status
+
+  // form info
+  name: string
+  entityConfig: EntityConfig
 }
 
 export interface Actions<T = any> {
@@ -216,6 +220,11 @@ export interface EntityConfig {
   formProps: {
     [key: string]: any
   }
+}
+
+export interface EntityStoreValue {
+  name: string
+  entityConfig: EntityConfig
 }
 
 export interface FieldConfig<ComponentProps = any> {

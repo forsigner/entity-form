@@ -19,6 +19,8 @@ export function getInitialState<T = any>(instance: T, config: Config) {
     submitting: false,
     validating: false,
     status: 'editable',
+    name: '',
+    entityConfig: {} as any,
   }
 
   const fields = fieldStore.get(instance)
@@ -38,6 +40,7 @@ function getState(fields: FieldMetadata[], state: FormState, parent = '') {
       const visible = Reflect.has(field, 'visible') ? field.visible : true
       const display = Reflect.has(field, 'display') ? field.display : true
       const touched = Reflect.has(field, 'touched') ? field.touched : false
+      const pendding = Reflect.has(field, 'pendding') ? field.pendding : false
       const status = Reflect.has(field, 'status') ? field.status : 'editable'
       const error = Reflect.has(field, 'error') ? field.error : null
       const data = Reflect.has(field, 'data') ? field.data : null
@@ -46,6 +49,7 @@ function getState(fields: FieldMetadata[], state: FormState, parent = '') {
       set(state.visibles, name, visible)
       set(state.displays, name, display)
       set(state.toucheds, name, touched)
+      set(state.penddings, name, pendding)
       set(state.statuses, name, status)
       set(state.errors, name, error)
       set(state.enums, name, enumData)

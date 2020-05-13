@@ -7,6 +7,7 @@ import { ActionBuilder } from '../builders/ActionBuilder'
 import { HelperBuilder } from '../builders/HelperBuilder'
 import { Validator } from '../Validator'
 import { entityStore, fieldStore } from '../stores'
+
 import {
   uuid,
   getInitialState,
@@ -28,9 +29,13 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
   const instanceRef = useRef<T>(new Entity())
   const instance = instanceRef.current
   const metaState = getInitialState(instance, config)
-  const initialState = useRef<FormState<T>>(metaState)
-  const formName = entityStore.get(Entity)
-  const name = useRef(config.name || formName || `entity_form_${uuid()}`)
+  const { name: entityFormName, entityConfig } = entityStore.get(Entity)
+  const name = useRef(config.name || entityFormName || `entity_form_${uuid()}`)
+  const initialState = useRef<FormState<T>>({
+    ...metaState,
+    name: name.current,
+    entityConfig,
+  })
 
   // eslint-disable-next-line
   const [state, set] = useStore(name.current, initialState.current)
