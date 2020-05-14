@@ -77,6 +77,16 @@ export type Enums<T = any> = {
     : Enum
 }
 
+export type Metas<T = any> = {
+  [K in keyof T]?: T[K] extends any[]
+    ? T[K][number] extends object
+      ? Metas<T[K][number]>[]
+      : any
+    : T[K] extends object
+    ? Metas<T[K]>
+    : any
+}
+
 export type Datas<T = any> = {
   [K in keyof T]?: T[K] extends any[]
     ? T[K][number] extends object
@@ -101,6 +111,8 @@ export interface FieldState {
   display: boolean
   status: Status
   pendding: boolean
+  enum: Enum
+  meta: any
   data: any
 }
 
@@ -113,6 +125,7 @@ export interface FormState<T = any> {
   statuses: Statuses<T>
   penddings: Penddings<T>
   enums: Enums<T>
+  metas: Metas<T>
   datas: Datas<T>
   submitting: boolean
   validating: boolean

@@ -12,6 +12,7 @@ export function getInitialState<T = any>(instance: T, config: Config) {
     statuses: {},
     penddings: {},
     enums: {},
+    metas: {},
     datas: {},
     dirty: false,
     valid: true,
@@ -53,6 +54,7 @@ function getState(fields: FieldMetadata[], state: FormState, parent = '') {
       set(state.statuses, name, status)
       set(state.errors, name, error)
       set(state.enums, name, enumData)
+      set(state.metas, name, field)
       set(state.datas, name, data)
       continue
     }
