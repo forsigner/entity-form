@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "name": "entity-form",
   "author": "forsigner",
   "module": "dist/entity-form.esm.js",
