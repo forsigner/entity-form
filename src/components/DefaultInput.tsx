@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { isDOM } from '../utils'
+import { isNative } from '../utils'
 import { RegisterFieldProps } from '../types'
 
 export const DefaultInput: React.FC<RegisterFieldProps> = props => {
-  if (!isDOM) {
+  if (!isNative) {
     return <>你忘记指定component</>
   }
 

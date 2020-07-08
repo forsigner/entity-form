@@ -88,6 +88,7 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
   const fields = fieldStore.get(instance)
 
   const result: Result<T> = {
+    entity: Entity,
     state,
     handlers,
     actions,
@@ -102,7 +103,7 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
     const effects = (instance as any).effects
     effects && effects(actions)
 
-    onFieldUpdate(names => {
+    onFieldUpdate((names) => {
       for (const name of names) {
         emitter.emit(name)
       }

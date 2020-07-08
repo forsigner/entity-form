@@ -11,7 +11,7 @@ export class HelperBuilder<T> {
   }
 
   getError = (name: string) => {
-    return get(this.state.values, name)
+    return get(this.state.errors, name) as any
   }
 
   getVisible = (name: string) => {
@@ -34,6 +34,14 @@ export class HelperBuilder<T> {
     return get(this.state.penddings, name) as boolean
   }
 
+  getEnum = (name: string) => {
+    return get(this.state.enums, name) as any
+  }
+
+  getMeta = (name: string) => {
+    return get(this.state.metas, name)
+  }
+
   getData = (name: string) => {
     return get(this.state.datas, name)
   }
@@ -42,11 +50,13 @@ export class HelperBuilder<T> {
     return {
       value: this.getValue(name),
       error: this.getError(name),
-      visible: this.getVisible(name),
       touched: this.getTouched(name),
+      visible: this.getVisible(name),
       display: this.getDisplay(name),
       status: this.getStatus(name),
       pendding: this.getPendding(name),
+      enum: this.getEnum(name),
+      meta: this.getMeta(name),
       data: this.getData(name),
     }
   }

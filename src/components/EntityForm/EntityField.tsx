@@ -6,7 +6,7 @@ import { handleFieldMemo } from '../../utils'
 import { useFormContext } from '../../hooks/useFormContext'
 import { DefaultInput } from '../DefaultInput'
 
-export const EntityField: FC<FieldProps> = memo(props => {
+export const EntityField: FC<FieldProps> = memo((props) => {
   const { field } = props
   const result = useFormContext()
   const { handleBlur, handleChange } = result.handlers

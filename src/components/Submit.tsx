@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from 'react'
 import { Helper } from '../Helper'
-import { isDOM } from '../utils'
+import { isNative } from '../utils'
 import { useFormContext } from '../hooks/useFormContext'
 
 interface SubmitProps {}
@@ -13,7 +13,7 @@ export const Submit: FC<SubmitProps> = ({ children }) => {
     return <SubmitComponent onSubmit={result.handlers.handleSubmit}>{children}</SubmitComponent>
   }
 
-  if (!isDOM) {
+  if (isNative) {
     return <Fragment>Submit Component Not Register</Fragment>
   }
 

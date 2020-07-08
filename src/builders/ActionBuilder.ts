@@ -2,6 +2,7 @@ import produce from 'immer'
 import { Dispatch, Action, getState } from 'stook'
 import isEqual from 'react-fast-compare'
 import set from 'lodash.set'
+import get from 'lodash.get'
 import { FormState, Errors, Toucheds, Visibles } from '../types'
 import { Validator } from '../Validator'
 import { checkValid, touchAll } from '../utils'
@@ -79,7 +80,7 @@ export class ActionBuilder<T> {
   setFormState = this.setState
 
   setSubmitting = (submitting: boolean) => {
-    const nextState = produce<FormState<T>, FormState<T>>(getState(this.name), draft => {
+    const nextState = produce<FormState<T>, FormState<T>>(getState(this.name), (draft) => {
       draft.submitting = submitting
     })
     this.setState({ ...nextState })
@@ -94,7 +95,7 @@ export class ActionBuilder<T> {
     const errors = await this.validator.validateForm()
     if (isEqual(errors, state.errors)) return
 
-    const nextState = produce<FormState<T>, FormState<T>>(state, draft => {
+    const nextState = produce<FormState<T>, FormState<T>>(state, (draft) => {
       draft.errors = errors
       draft.valid = checkValid(draft.errors)
       draft.toucheds = touchAll(state.values)
@@ -102,16 +103,25 @@ export class ActionBuilder<T> {
     this.setState({ ...nextState })
   }
 
-  validateField = async (name: string) => {
+  /**
+   * validate field
+   * @param name field name
+   * @return is filed valid
+   */
+  validateField = async (name: string): Promise<boolean> => {
     const state = getState(this.name)
     const errors = await this.validator.validateForm()
-    if (isEqual(errors, state.errors)) return
+    const error = get(errors, name)
+    if (isEqual(errors, state.errors)) {
+      return !error
+    }
 
-    const nextState = produce<FormState<T>, FormState<T>>(state, draft => {
+    const nextState = produce<FormState<T>, FormState<T>>(state, (draft) => {
       draft.errors = errors
       draft.valid = checkValid(draft.errors)
       set(draft.toucheds, name, true)
     })
     this.setState({ ...nextState })
+    return !error
   }
 }

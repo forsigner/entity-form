@@ -6,9 +6,10 @@ import { formContext } from '../../formContext'
 import { Submit } from '../Submit'
 import { Reset } from '../Reset'
 import { DefaultForm } from '../DefaultForm'
+import { entityStore } from '../../stores'
 
 function getJSX(fields: FieldMetadata[], result: Result, parent: string = '') {
-  return fields.map(field => {
+  return fields.map((field) => {
     const name = parent ? `${parent}.${field.name}` : field.name
     if (!field.isRef) {
       return (
@@ -35,14 +36,15 @@ export const FormBaseHooks: FC<FormProps> = ({ use }) => {
   const { handlers } = use
   const { handleSubmit } = handlers
   const fields = fieldStore.get(use.instance)
+  const { entityConfig } = entityStore.get(use.entity)
   const jsxContent = getJSX(fields, use)
 
   return (
     <Provider value={use}>
       <DefaultForm onSubmit={handleSubmit}>
         {jsxContent}
-        <Submit></Submit>
-        <Reset></Reset>
+        {entityConfig.showResetButton && <Reset></Reset>}
+        {entityConfig.showSubmitButton && <Submit></Submit>}
       </DefaultForm>
     </Provider>
   )

@@ -5,5 +5,5 @@ import { FormBaseHooks } from './FormBaseHooks'
 
 export const FormBaseEntity: FC<FormProps> = ({ entity }) => {
   const use = useForm(entity as any)
-  return <FormBaseHooks use={use}></FormBaseHooks>
+  return <FormBaseHooks use={use} entity={entity}></FormBaseHooks>
 }

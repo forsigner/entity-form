@@ -8,4 +8,4 @@ export * from './isTouched'
 export * from './touchAll'
 export * from './uuid'
 
-export const isDOM = typeof window !== 'undefined'
+export const isNative = typeof navigator != 'undefined' && navigator.product == 'ReactNative'

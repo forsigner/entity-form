@@ -8,10 +8,12 @@ import { DefaultInput } from './DefaultInput'
 
 interface Props {
   name: string
+  componentProps?: any
+  memo?: () => boolean
 }
 
-const FieldContent: FC<FieldProps> = memo(props => {
-  const { field, result, name } = props
+const FieldContent: FC<FieldProps> = memo((props) => {
+  const { field, result, name, componentProps, memo } = props
   const { state, handlers } = result
   const { values } = state
   const { handleChange, handleBlur } = handlers
@@ -39,11 +41,13 @@ const FieldContent: FC<FieldProps> = memo(props => {
       handleBlur={handleBlur}
       result={result}
       field={field}
+      componentProps={componentProps}
+      memo={memo}
     />
   )
 }, handleFieldMemo)
 
-export const Field: FC<Props> = memo(({ name }) => {
+export const Field: FC<Props> = memo(({ name, componentProps = {}, memo }) => {
   const result = useFormContext()
   const { state, fieldsMetadata } = result
   const visible = get(state.visibles, name)
@@ -60,5 +64,13 @@ export const Field: FC<Props> = memo(({ name }) => {
   // TODO: 处理 array list
   if (name.includes('[]')) return null
 
-  return <FieldContent name={name} field={field} result={result}></FieldContent>
+  return (
+    <FieldContent
+      name={name}
+      componentProps={componentProps}
+      memo={memo}
+      field={field}
+      result={result}
+    ></FieldContent>
+  )
 })

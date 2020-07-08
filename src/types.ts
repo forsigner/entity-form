@@ -105,7 +105,7 @@ type HandleSubmit = (e?: React.FormEvent<HTMLFormElement>) => Promise<any>
 
 export interface FieldState {
   value: any
-  error: string
+  error: string | undefined
   touched: boolean
   visible: boolean
   display: boolean
@@ -150,7 +150,7 @@ export interface Actions<T = any> {
   resetForm(): void
   submitForm(): void
   validateForm(): Promise<void>
-  validateField(name: string): Promise<void>
+  validateField(name: string): Promise<boolean>
 }
 
 export interface FieldHandlers {
@@ -179,6 +179,7 @@ export interface Handlers extends FieldHandlers {
 // }
 
 export interface Result<T = any> {
+  entity: EntityType<T>
   state: FormState<T>
   handlers: Handlers
   actions: Actions<T>
@@ -230,9 +231,11 @@ export interface GqlConfig {
 }
 
 export interface EntityConfig {
-  formProps: {
+  formProps?: {
     [key: string]: any
   }
+  showResetButton?: boolean
+  showSubmitButton?: boolean
 }
 
 export interface EntityStoreValue {
@@ -285,6 +288,7 @@ export interface RegisterFieldProps extends RegisterProps, FieldHandlers {
   name: string
   value: any
   field: FieldConfig
+  componentProps?: any
 }
 
 export type EnumItem = {
@@ -307,4 +311,6 @@ export interface FieldProps {
   name: string
   field: FieldConfig
   result: Result
+  componentProps?: any
+  memo?: () => boolean
 }

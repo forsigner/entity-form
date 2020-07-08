@@ -3,6 +3,8 @@ import get from 'lodash.get'
 import { FieldProps } from '../types'
 
 export function handleFieldMemo(prev: FieldProps, next: FieldProps) {
+  if (prev.memo) return prev.memo()
+
   const { name: n1 } = prev
   const { name: n2 } = next
   const {

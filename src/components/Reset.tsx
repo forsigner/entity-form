@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from 'react'
 import { Helper } from '../Helper'
-import { isDOM } from '../utils'
+import { isNative } from '../utils'
 import { useFormContext } from '../hooks/useFormContext'
 
 interface ResetProps {}
@@ -12,7 +12,7 @@ export const Reset: FC<ResetProps> = ({ children }) => {
     return <ResetComponent resetForm={result.actions.resetForm}>{children}</ResetComponent>
   }
 
-  if (!isDOM) {
+  if (isNative) {
     return <Fragment>Reset Component Not Register</Fragment>
   }
 
