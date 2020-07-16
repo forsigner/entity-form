@@ -9,11 +9,12 @@ import { DefaultInput } from './DefaultInput'
 interface Props {
   name: string
   componentProps?: any
+  component?: any
   memo?: () => boolean
 }
 
 const FieldContent: FC<FieldProps> = memo((props) => {
-  const { field, result, name, componentProps, memo } = props
+  const { field, result, name, component, componentProps, memo } = props
   const { state, handlers } = result
   const { values } = state
   const { handleChange, handleBlur } = handlers
@@ -21,7 +22,9 @@ const FieldContent: FC<FieldProps> = memo((props) => {
   const value = get(values, name)
   let Cmp: any
 
-  if (!field.component) {
+  if (component) {
+    Cmp = component
+  } else if (!field.component) {
     Cmp = DefaultInput
   } else if (typeof field.component === 'string') {
     Cmp = Helper.FieldStore[field.component]
@@ -29,29 +32,26 @@ const FieldContent: FC<FieldProps> = memo((props) => {
     Cmp = field.component
   }
 
-  if (!Cmp) {
-    Cmp = DefaultInput
+  if (!Cmp) Cmp = DefaultInput
+  const newProps: any = {
+    name,
+    value,
+    handleChange,
+    handleBlur,
+    result,
+    field,
+    memo,
   }
 
-  return (
-    <Cmp
-      name={name}
-      value={value}
-      handleChange={handleChange}
-      handleBlur={handleBlur}
-      result={result}
-      field={field}
-      componentProps={componentProps}
-      memo={memo}
-    />
-  )
+  if (componentProps) newProps['componentProps'] = componentProps
+
+  return <Cmp {...newProps} />
 }, handleFieldMemo)
 
-export const Field: FC<Props> = memo(({ name, componentProps = {}, memo }) => {
+export const Field: FC<Props> = memo(({ name, component, componentProps, memo }) => {
   const result = useFormContext()
   const { state, fieldsMetadata } = result
   const visible = get(state.visibles, name)
-
   if (visible === false) return null
 
   // TODO: too magic
@@ -64,13 +64,14 @@ export const Field: FC<Props> = memo(({ name, componentProps = {}, memo }) => {
   // TODO: 处理 array list
   if (name.includes('[]')) return null
 
-  return (
-    <FieldContent
-      name={name}
-      componentProps={componentProps}
-      memo={memo}
-      field={field}
-      result={result}
-    ></FieldContent>
-  )
+  const props: any = {
+    name,
+    component,
+    memo,
+    field,
+    result,
+  }
+  if (componentProps) props['componentProps'] = componentProps
+
+  return <FieldContent {...props}></FieldContent>
 })

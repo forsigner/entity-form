@@ -52,6 +52,7 @@
     "class-validator": "^0.12.2",
     "deepmerge": "^4.2.2",
     "is-promise": "^2.1.0",
+    "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
     "reflect-metadata": "^0.1.13",
     "stook": "^0.2.5"

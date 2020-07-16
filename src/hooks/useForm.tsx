@@ -17,6 +17,7 @@ import {
   onFieldUpdate,
   emitter,
 } from '../utils'
+import { forms } from '../forms'
 
 /**
  *
@@ -97,6 +98,8 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
     instance,
     fieldsMetadata: getFieldMetadata(fields),
   }
+
+  forms.setResult(name.current, result)
 
   // 处理联动逻辑
   useEffect(() => {

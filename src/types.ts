@@ -312,5 +312,6 @@ export interface FieldProps {
   field: FieldConfig
   result: Result
   componentProps?: any
+  component?: any
   memo?: () => boolean
 }
