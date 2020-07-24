@@ -11,10 +11,11 @@ interface Props {
   componentProps?: any
   component?: any
   memo?: () => boolean
+  onChange?: (...args: any[]) => any
 }
 
 const FieldContent: FC<FieldProps> = memo((props) => {
-  const { field, result, name, component, componentProps, memo } = props
+  const { field, result, name, component, componentProps, memo, onChange } = props
   const { state, handlers } = result
   const { values } = state
   const { handleChange, handleBlur } = handlers
@@ -41,6 +42,7 @@ const FieldContent: FC<FieldProps> = memo((props) => {
     result,
     field,
     memo,
+    onChange,
   }
 
   if (componentProps) newProps['componentProps'] = componentProps
@@ -48,7 +50,7 @@ const FieldContent: FC<FieldProps> = memo((props) => {
   return <Cmp {...newProps} />
 }, handleFieldMemo)
 
-export const Field: FC<Props> = memo(({ name = '', component, componentProps, memo }) => {
+export const Field: FC<Props> = memo(({ name = '', component, componentProps, memo, onChange }) => {
   const result = useFormContext()
   const { state, fieldsMetadata } = result
   const visible = get(state.visibles, name)
@@ -68,6 +70,7 @@ export const Field: FC<Props> = memo(({ name = '', component, componentProps, me
     name,
     component,
     memo,
+    onChange,
     field,
     result,
   }

@@ -3,7 +3,7 @@ import { Dispatch, Action, getState } from 'stook'
 import isEqual from 'react-fast-compare'
 import set from 'lodash.set'
 import get from 'lodash.get'
-import { FormState, Errors, Toucheds, Visibles } from '../types'
+import { FormState, Errors, Toucheds, Visibles, Disableds } from '../types'
 import { Validator } from '../Validator'
 import { checkValid, touchAll } from '../utils'
 
@@ -57,8 +57,12 @@ export class ActionBuilder<T> {
     // this.setState(nextState)
   }
 
-  setTouched = (fn: (touched: Toucheds<T>) => void) => {
-    this.runFn(fn, 'touched')
+  setToucheds = (fn: (touched: Toucheds<T>) => void) => {
+    this.runFn(fn, 'toucheds')
+  }
+
+  setDisableds = (fn: (disabled: Disableds<T>) => void) => {
+    this.runFn(fn, 'disableds')
   }
 
   setVisibles = (fn: (visibles: Visibles<T>) => void) => {

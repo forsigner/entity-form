@@ -50,12 +50,12 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
   }
 
   const validator = new Validator(name.current, Entity, config)
-
   const actionBuilder = new ActionBuilder(name.current, setState, initialState.current, validator)
 
   const actions: Actions<T> = {
     setValues: actionBuilder.setValues,
-    setTouched: actionBuilder.setTouched,
+    setToucheds: actionBuilder.setToucheds,
+    setDisableds: actionBuilder.setDisableds,
     setErrors: actionBuilder.setErrros,
     setVisibles: actionBuilder.setVisibles,
     setEnums: actionBuilder.setEnums,

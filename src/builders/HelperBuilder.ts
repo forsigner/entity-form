@@ -22,6 +22,10 @@ export class HelperBuilder<T> {
     return get(this.state.toucheds, name) as boolean
   }
 
+  getDisabled = (name: string) => {
+    return get(this.state.disableds, name) as boolean
+  }
+
   getDisplay = (name: string) => {
     return get(this.state.displays, name) as boolean
   }
@@ -51,6 +55,7 @@ export class HelperBuilder<T> {
       value: this.getValue(name),
       error: this.getError(name),
       touched: this.getTouched(name),
+      disabled: this.getDisabled(name),
       visible: this.getVisible(name),
       display: this.getDisplay(name),
       status: this.getStatus(name),
@@ -72,17 +77,17 @@ export class HelperBuilder<T> {
         return index === get(state.values, name).length - 1
       },
       push(obj) {
-        setValues(values => {
+        setValues((values) => {
           get(values, name).push(obj)
         })
       },
       remove(index) {
-        setValues(values => {
+        setValues((values) => {
           get(values, name).splice(index, 1)
         })
       },
       swap(indexA, indexB) {
-        setValues(values => {
+        setValues((values) => {
           const A = get(values, name).slice(indexA, indexA + 1)
           const B = get(values, name).slice(indexB, indexB + 1)
           get(values, name).splice(indexA, 1, ...B)

@@ -27,6 +27,16 @@ export type Toucheds<T = any> = {
     : boolean
 }
 
+export type Disableds<T = any> = {
+  [K in keyof T]?: T[K] extends any[]
+    ? T[K][number] extends object
+      ? Disableds<T[K][number]>[]
+      : boolean
+    : T[K] extends object
+    ? Disableds<T[K]>
+    : boolean
+}
+
 export type Statuses<T = any> = {
   [K in keyof T]?: T[K] extends any[]
     ? T[K][number] extends object
@@ -107,6 +117,7 @@ export interface FieldState {
   value: any
   error: string | undefined
   touched: boolean
+  disabled: boolean
   visible: boolean
   display: boolean
   status: Status
@@ -120,6 +131,7 @@ export interface FormState<T = any> {
   values: T
   errors: Errors<T>
   toucheds: Toucheds<T>
+  disableds: Disableds<T>
   visibles: Visibles<T>
   displays: Displays<T>
   statuses: Statuses<T>
@@ -141,7 +153,8 @@ export interface FormState<T = any> {
 
 export interface Actions<T = any> {
   setValues(fn: (values: T) => void): void
-  setTouched(fn: (touched: Toucheds<T>) => void): void
+  setToucheds(fn: (touched: Toucheds<T>) => void): void
+  setDisableds(fn: (touched: Disableds<T>) => void): void
   setVisibles(fn: (visibles: Visibles<T>) => void): void
   setErrors(fn: (errors: Errors<T>) => void): void
   setEnums(fn: (enums: Enums<T>) => void): void
@@ -258,13 +271,15 @@ export interface FieldConfig<ComponentProps = any> {
   required?: boolean
   order?: number
   enum?: Enum | (() => Enum)
-
   data?: any
 
   component?: any
   componentProps?: ComponentProps
 
   gql?: GqlConfig
+
+  onChange?: (...args: any[]) => any
+
   [key: string]: any
 }
 
@@ -288,6 +303,7 @@ export interface RegisterFieldProps extends RegisterProps, FieldHandlers {
   name: string
   value: any
   field: FieldConfig
+  onChange?: (...args: any[]) => any
   componentProps?: any
 }
 
@@ -313,5 +329,6 @@ export interface FieldProps {
   result: Result
   componentProps?: any
   component?: any
+  onChange?: (...args: any[]) => any
   memo?: () => boolean
 }

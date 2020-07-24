@@ -12,6 +12,7 @@ export function handleFieldMemo(prev: FieldProps, next: FieldProps) {
     errors: err1,
     values: val1,
     toucheds: t1,
+    disableds: d1,
     visibles: vis1,
     enums: enums1,
   } = prev.result.state
@@ -20,6 +21,7 @@ export function handleFieldMemo(prev: FieldProps, next: FieldProps) {
     errors: err2,
     values: val2,
     toucheds: t2,
+    disableds: d2,
     visibles: vis2,
     enums: enum2,
   } = next.result.state
@@ -28,6 +30,7 @@ export function handleFieldMemo(prev: FieldProps, next: FieldProps) {
     st1 === st2 &&
     get(val1, n1) === get(val2, n2) &&
     get(t1, n1) === get(t2, n2) &&
+    get(d1, n1) === get(d2, n2) &&
     get(vis1, n1) === get(vis2, n2) &&
     get(err1, n1) === get(err2, n2) &&
     isEqual(get(enums1, n1), get(enum2, n2))
