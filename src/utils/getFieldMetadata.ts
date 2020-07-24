@@ -3,6 +3,7 @@ import { FieldMetadata } from '../types'
 
 export function getFieldMetadata(fields: FieldMetadata[]) {
   let obj: any = {}
+
   for (const field of fields) {
     if (!field.isRef) {
       obj[field.name] = field

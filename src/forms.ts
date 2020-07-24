@@ -1,3 +1,5 @@
+import { Result } from './types'
+
 const NULL: any = null
 
 export class forms {
@@ -9,7 +11,7 @@ export class forms {
     }
   }
 
-  static getResult(name: string) {
+  static getResult(name: string): Result {
     if (!forms.store[name]) {
       forms.store[name] = NULL
     }

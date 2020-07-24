@@ -48,7 +48,7 @@ const FieldContent: FC<FieldProps> = memo((props) => {
   return <Cmp {...newProps} />
 }, handleFieldMemo)
 
-export const Field: FC<Props> = memo(({ name, component, componentProps, memo }) => {
+export const Field: FC<Props> = memo(({ name = '', component, componentProps, memo }) => {
   const result = useFormContext()
   const { state, fieldsMetadata } = result
   const visible = get(state.visibles, name)
