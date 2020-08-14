@@ -17,7 +17,7 @@ export const DefaultForm: React.FC<any> = (props) => {
   }
 
   if (isNative) {
-    return <>{children}</>
+    return children
   }
 
   return React.createElement('form', props || {})
