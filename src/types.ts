@@ -162,7 +162,7 @@ export interface Actions<T = any> {
   setFormState: Dispatch<Action<FormState<T>>>
   resetForm(): void
   submitForm(): void
-  validateForm(): Promise<void>
+  validateForm(): Promise<Errors<T>>
   validateField(name: string): Promise<boolean>
 }
 

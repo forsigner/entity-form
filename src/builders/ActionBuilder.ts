@@ -84,7 +84,7 @@ export class ActionBuilder<T> {
   setFormState = this.setState
 
   setSubmitting = (submitting: boolean) => {
-    const nextState = produce<FormState<T>, FormState<T>>(getState(this.name), (draft) => {
+    const nextState = produce<FormState<T>, FormState<T>>(getState(this.name), draft => {
       draft.submitting = submitting
     })
     this.setState({ ...nextState })
@@ -97,14 +97,15 @@ export class ActionBuilder<T> {
   validateForm = async () => {
     const state = getState(this.name)
     const errors = await this.validator.validateForm()
-    if (isEqual(errors, state.errors)) return
+    if (isEqual(errors, state.errors)) return errors
 
-    const nextState = produce<FormState<T>, FormState<T>>(state, (draft) => {
+    const nextState = produce<FormState<T>, FormState<T>>(state, draft => {
       draft.errors = errors
       draft.valid = checkValid(draft.errors)
       draft.toucheds = touchAll(state.values)
     })
     this.setState({ ...nextState })
+    return errors
   }
 
   /**
@@ -120,7 +121,7 @@ export class ActionBuilder<T> {
       return !error
     }
 
-    const nextState = produce<FormState<T>, FormState<T>>(state, (draft) => {
+    const nextState = produce<FormState<T>, FormState<T>>(state, draft => {
       draft.errors = errors
       draft.valid = checkValid(draft.errors)
       set(draft.toucheds, name, true)
