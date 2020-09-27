@@ -267,8 +267,8 @@ export interface FieldConfig<ComponentProps = any> {
   status?: Status
   error?: string
   touched?: boolean
-  disabled: boolean
-  pendding: boolean
+  disabled?: boolean
+  pendding?: boolean
   enum?: Enum | (() => Enum)
   data?: any
 
