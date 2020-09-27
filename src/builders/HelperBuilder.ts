@@ -1,6 +1,6 @@
 import { getState } from 'stook'
 import get from 'lodash.get'
-import { Actions, ArrayHelper, FieldState, FormState } from '../types'
+import { Actions, ArrayHelper, Enum, FieldState, FormState } from '../types'
 
 export class HelperBuilder<T> {
   state: FormState = getState(this.name)
@@ -39,7 +39,7 @@ export class HelperBuilder<T> {
   }
 
   getEnum = (name: string) => {
-    return get(this.state.enums, name) as any
+    return get(this.state.enums, name) as Enum
   }
 
   getMeta = (name: string) => {
@@ -77,17 +77,17 @@ export class HelperBuilder<T> {
         return index === get(state.values, name).length - 1
       },
       push(obj) {
-        setValues((values) => {
+        setValues(values => {
           get(values, name).push(obj)
         })
       },
       remove(index) {
-        setValues((values) => {
+        setValues(values => {
           get(values, name).splice(index, 1)
         })
       },
       swap(indexA, indexB) {
-        setValues((values) => {
+        setValues(values => {
           const A = get(values, name).slice(indexA, indexA + 1)
           const B = get(values, name).slice(indexB, indexB + 1)
           get(values, name).splice(indexA, 1, ...B)

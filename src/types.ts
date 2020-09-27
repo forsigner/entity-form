@@ -311,6 +311,8 @@ export type EnumItem = {
   value: any
   label: any
   disabled?: boolean
+  data?: any
+  [key: string]: any
 }
 
 export type Enum = EnumItem[]
