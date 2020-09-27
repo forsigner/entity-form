@@ -259,19 +259,21 @@ export interface EntityStoreValue {
 export interface FieldConfig<ComponentProps = any> {
   label?: string
   showLabel?: boolean
+  description?: string
 
   value?: any
-  description?: string
   display?: boolean
   visible?: boolean
   status?: Status
   error?: string
   touched?: boolean
+  disabled: boolean
+  pendding: boolean
+  enum?: Enum | (() => Enum)
+  data?: any
 
   required?: boolean
   order?: number
-  enum?: Enum | (() => Enum)
-  data?: any
 
   component?: any
   componentProps?: ComponentProps
