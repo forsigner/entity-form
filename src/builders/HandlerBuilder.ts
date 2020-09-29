@@ -35,20 +35,29 @@ export class HandlerBuilder<T> {
     return result
   }
 
-  private checkVisible(draft: any) {
+  /**
+   *
+   * @param values exclude invisible values
+   */
+  private handleVisibleValues(values: any, visibles: any) {
     // handle visible
-    const flatVisible = this.flatObject(draft.visibles)
+    const flatVisible = this.flatObject(visibles)
 
     for (const key of Object.keys(flatVisible)) {
+      // 不处理 visible=false
       if (flatVisible[key] !== false) continue
+
       if (!key.includes('.')) {
-        delete draft.values[key]
+        delete values[key]
+
+        // 处理 nested object
       } else {
         const arr = key.split('.')
         const last = arr.pop() as string
-        delete get(draft.values, arr.join('.'))[last]
+        delete get(values, arr.join('.'))[last]
       }
     }
+    return values
   }
 
   private updateBeforeSubmit(errors: Errors<T>) {
@@ -65,8 +74,6 @@ export class HandlerBuilder<T> {
       draft.submitting = true
       draft.dirty = true
 
-      this.checkVisible(draft)
-
       if (!isValid) {
         const erorr = this.config.onError || this.instance.onError
         erorr && erorr(draft.errors, { state, actions })
@@ -74,7 +81,9 @@ export class HandlerBuilder<T> {
 
       if (isValid) {
         const submit = this.config.onSubmit || this.instance.onSubmit
-        submit && submit(original(draft.values), { state, actions })
+
+        const finalValues = this.handleVisibleValues({ ...original(draft.values) }, draft.visibles)
+        submit && submit(finalValues, { state, actions })
       }
     })
 
@@ -132,7 +141,6 @@ export class HandlerBuilder<T> {
       // setValues first，do not block ui
       newState = produce<FormState<T>, FormState<T>>(state, draft => {
         set(draft.values as any, fieldName, value)
-        this.checkVisible(draft)
       })
 
       setState({ ...newState })
