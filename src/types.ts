@@ -225,7 +225,6 @@ export interface Config<T = any> {
     { state, actions }: { state: FormState<T>; actions: Actions<T> },
   ) => any
   onReset?: ({ state, actions }: { state: FormState<T>; actions: Actions<T> }) => any
-  effects?: (actions: Actions<T>) => any
 }
 
 export interface Variables {

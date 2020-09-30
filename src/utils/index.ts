@@ -1,6 +1,4 @@
 export * from './checkValid'
-export * from './emitter'
-export * from './getChangedNames'
 export * from './getFieldMetadata'
 export * from './getInitialState'
 export * from './handleFieldMemo'

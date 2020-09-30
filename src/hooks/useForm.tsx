@@ -1,6 +1,6 @@
 import 'reflect-metadata'
-import { useRef, useCallback, useEffect } from 'react'
-import { useStore, Dispatch, Action, getState } from 'stook'
+import { useRef, useCallback } from 'react'
+import { useStore, Dispatch, Action } from 'stook'
 import { FormState, EntityType, Handlers, Actions, Result, Config } from '../types'
 import { HandlerBuilder } from '../builders/HandlerBuilder'
 import { ActionBuilder } from '../builders/ActionBuilder'
@@ -8,15 +8,7 @@ import { HelperBuilder } from '../builders/HelperBuilder'
 import { Validator } from '../Validator'
 import { entityStore, fieldStore } from '../stores'
 
-import {
-  uuid,
-  getInitialState,
-  getChangedNames,
-  getFieldMetadata,
-  emitFieldUpdate,
-  onFieldUpdate,
-  emitter,
-} from '../utils'
+import { uuid, getInitialState, getFieldMetadata } from '../utils'
 import { forms } from '../forms'
 
 /**
@@ -41,12 +33,9 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
   // eslint-disable-next-line
   const [state, set] = useStore(name.current, initialState.current)
 
+  // TODO:
   const setState: Dispatch<Action<FormState<T>>> = (act: any) => {
-    // TODO: handle any
-    let prevState = getState(name.current)
-    const nextState: any = set(act)
-    const names = getChangedNames(prevState, nextState)
-    emitFieldUpdate(names)
+    set(act)
   }
 
   const validator = new Validator(name.current, Entity, config)
@@ -100,18 +89,6 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
   }
 
   forms.setResult(name.current, result)
-
-  // 处理联动逻辑
-  useEffect(() => {
-    const effects = (instance as any).effects
-    effects && effects(actions)
-
-    onFieldUpdate((names) => {
-      for (const name of names) {
-        emitter.emit(name)
-      }
-    })
-  }, [])
 
   return result
 }
