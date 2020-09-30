@@ -3,12 +3,18 @@ import { Dispatch, Action, getState } from 'stook'
 import isEqual from 'react-fast-compare'
 import set from 'lodash.set'
 import get from 'lodash.get'
-import { FormState, Errors, Toucheds, Visibles, Disableds } from '../types'
+import merge from 'deepmerge'
+import {
+  FormState,
+  VisiblesFn,
+  ValuesFn,
+  TouchedsFn,
+  DisabledsFn,
+  ErrorsFn,
+  EnumsFn,
+} from '../types'
 import { Validator } from '../Validator'
 import { checkValid, touchAll } from '../utils'
-
-type ValuesFn<T> = T | ((prev: T) => T) | ((prev: T) => void)
-type EnumsFn<T> = T | ((prev: T) => T) | ((prev: T) => void)
 
 export class ActionBuilder<T> {
   constructor(
@@ -39,37 +45,37 @@ export class ActionBuilder<T> {
       }
     })
 
-    if (useImmer) {
-      nextState = immerState
-    }
+    if (useImmer) nextState = immerState
 
     return nextState
   }
 
   private runFn(fn: any, type: string) {
     const nextPartialState = this.getNextPartialState(fn, type)
+
     const nextState = produce<FormState<T>, FormState<T>>(getState(this.name), (draft: any) => {
-      draft[type] = nextPartialState
+      // support partial value
+      draft[type] = merge(draft[type], nextPartialState)
     })
 
-    // TODO:
+    // TODO: 是否需要拷贝?
     this.setState({ ...nextState })
     // this.setState(nextState)
   }
 
-  setToucheds = (fn: (touched: Toucheds<T>) => void) => {
+  setToucheds = (fn: TouchedsFn<T>) => {
     this.runFn(fn, 'toucheds')
   }
 
-  setDisableds = (fn: (disabled: Disableds<T>) => void) => {
+  setDisableds = (fn: DisabledsFn<T>) => {
     this.runFn(fn, 'disableds')
   }
 
-  setVisibles = (fn: (visibles: Visibles<T>) => void) => {
+  setVisibles = (fn: VisiblesFn<T>) => {
     this.runFn(fn, 'visibles')
   }
 
-  setErrros = (fn: (errors: Errors<T>) => void) => {
+  setErrors = (fn: ErrorsFn<T>) => {
     this.runFn(fn, 'errors')
   }
 

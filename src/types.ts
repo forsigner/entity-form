@@ -151,15 +151,36 @@ export interface FormState<T = any> {
   entityConfig: EntityConfig
 }
 
+export type ValuesFn<T> = Partial<T> | ((prev: T) => T) | ((prev: T) => void)
+export type TouchedsFn<T> =
+  | Toucheds<T>
+  | ((toucheds: Toucheds<T>) => Toucheds<T>)
+  | ((toucheds: Toucheds<T>) => void)
+export type DisabledsFn<T> =
+  | Disableds<T>
+  | ((disableds: Disableds<T>) => Disableds<T>)
+  | ((disableds: Disableds<T>) => void)
+export type VisiblesFn<T> =
+  | Visibles<T>
+  | ((visibles: Visibles<T>) => Visibles<T>)
+  | ((visibles: Visibles<T>) => void)
+export type ErrorsFn<T> =
+  | Errors<T>
+  | ((errors: Errors<T>) => Errors<T>)
+  | ((errors: Errors<T>) => void)
+export type EnumsFn<T> = Enums<T> | ((enums: Enums<T>) => Enums<T>) | ((enums: Enums<T>) => void)
+
 export interface Actions<T = any> {
-  setValues(fn: (values: T) => void): void
-  setToucheds(fn: (touched: Toucheds<T>) => void): void
-  setDisableds(fn: (touched: Disableds<T>) => void): void
-  setVisibles(fn: (visibles: Visibles<T>) => void): void
-  setErrors(fn: (errors: Errors<T>) => void): void
-  setEnums(fn: (enums: Enums<T>) => void): void
-  setSubmitting(isSubmitting: boolean): void
+  setValues(fn: ValuesFn<T>): void
+  setToucheds(fn: TouchedsFn<T>): void
+  setDisableds(fn: DisabledsFn<T>): void
+  setVisibles(fn: VisiblesFn<T>): void
+  setErrors(fn: ErrorsFn<T>): void
+  setEnums(fn: EnumsFn<T>): void
+
   setFormState: Dispatch<Action<FormState<T>>>
+
+  setSubmitting(isSubmitting: boolean): void
   resetForm(): void
   submitForm(): void
   validateForm(): Promise<Errors<T>>

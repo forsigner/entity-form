@@ -45,7 +45,7 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
     setValues: actionBuilder.setValues,
     setToucheds: actionBuilder.setToucheds,
     setDisableds: actionBuilder.setDisableds,
-    setErrors: actionBuilder.setErrros,
+    setErrors: actionBuilder.setErrors,
     setVisibles: actionBuilder.setVisibles,
     setEnums: actionBuilder.setEnums,
     setFormState: setState,
