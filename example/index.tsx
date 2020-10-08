@@ -16,9 +16,9 @@ registerAll()
 const App = () => {
   return (
     <div style={{ padding: '40px' }}>
-      {/* <Basic></Basic> */}
+      <Basic></Basic>
       {/* <CustomLayout></CustomLayout> */}
-      <AsyncValidate></AsyncValidate>
+      {/* <AsyncValidate></AsyncValidate> */}
     </div>
   )
 }

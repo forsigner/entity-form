@@ -1,7 +1,23 @@
 import * as React from 'react'
-import { EntityForm } from '../entity-form'
+import { EntityForm, useForm } from '../..'
 import { UserEntity } from '../entities/user.entity'
 
 export const Basic = () => {
-  return <EntityForm entity={UserEntity}></EntityForm>
+  const result = useForm(UserEntity, {
+    // initValues(v) {
+    //   console.log('v:', v)
+    //   return { username: 'hhah' }
+    // },
+    // validate() {
+    // return { username: 'error user' }
+    // },
+    onError(error) {},
+    onSubmit(values) {
+      console.log('values:', values)
+    },
+    onReset() {
+      console.log('reset........')
+    },
+  })
+  return <EntityForm use={result}></EntityForm>
 }
