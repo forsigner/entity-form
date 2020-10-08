@@ -9,23 +9,18 @@ EntityForm 默认支持数组和嵌套对象。
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import UserForm from '@site/src/components/UserForm';
 
 <Tabs
-defaultValue="apple"
+defaultValue="orange"
 values={[
-{ label: 'Form UI', value: 'apple', },
 { label: 'user.entity.ts', value: 'orange', },
 { label: 'UserForm.tsx', value: 'banana', },
 ]
 }>
-<TabItem value="apple">
-<UserForm />
-</TabItem>
 <TabItem value="orange">
 
 ```tsx
-import { entity, field } from '/entity-form'
+import { entity, field } from 'entity-form'
 
 class Address {
   @field({
@@ -92,6 +87,7 @@ export class UserEntity {
 ```tsx
 import React from 'react'
 import { EntityForm } from 'entity-form'
+import { User } from './user.entity'
 
 export default () => {
   return <EntityForm entity={User}></EntityForm>

@@ -4,14 +4,79 @@ title: '@field'
 sidebar_label: '@field'
 ---
 
-让表单开发不在苦恼
+表单字段配置。
 
-## 特点
+```ts title="user.entity.ts"
+import { entity, field } from 'entity-form'
 
-- 提高表单开发体验
-  - TS
-  - 代码量少
-- 扩展性强
-- 联动关联
-- 校验方便
-- 主题
+@entity('User')
+export class User {
+  @field({ component: 'Input' })
+  username: string
+
+  @field({ component: 'Input', type: 'passord' })
+  password: string
+}
+```
+
+## Field 配置
+
+> @field(fieldConfig)
+
+
+```ts
+interface FieldConfig<ComponentProps = any> {
+  label?: string
+
+  /** shoud show label */
+  showLabel?: boolean
+
+  /** field description */
+  description?: string
+
+  /** initial value */
+  value?: any
+
+  /** initial display */
+  display?: boolean
+
+  /** initial visible */
+  visible?: boolean
+
+  /** initial status */
+  status?: Status
+
+  /** initial error */
+  error?: string
+
+  /** initial  touched*/
+  touched?: boolean
+
+  /** initial  disabled*/
+  disabled?: boolean
+
+  /** initial pendding */
+  pendding?: boolean
+
+  /** initial enum */
+  enum?: Enum | (() => Enum)
+
+  /** initial data */
+  data?: any
+
+  /** required for ui */
+  required?: boolean
+
+  order?: number
+
+  component?: any
+
+  componentProps?: ComponentProps
+
+  gql?: GqlConfig
+
+  onChange?: (...args: any[]) => any
+
+  [key: string]: any
+}
+```

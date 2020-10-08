@@ -4,14 +4,20 @@ title: '@entity'
 sidebar_label: '@entity'
 ---
 
-让表单开发不在苦恼
+定义表单实体。
 
-## 特点
+```ts title="user.entity.ts"
+import { entity, field } from 'entity-form'
 
-- 提高表单开发体验
-  - TS
-  - 代码量少
-- 扩展性强
-- 联动关联
-- 校验方便
-- 主题
+@entity('User', {
+  showResetButton: false, // 默认 reset 按钮是隐藏的
+  showSubmitButton: true, // 默认 submit 按钮是显示的
+})
+export class User {
+  @field({ component: 'Input' })
+  username: string
+
+  @field({ component: 'Input', type: 'passord' })
+  password: string
+}
+```

@@ -4,19 +4,17 @@ title: 快速上手
 sidebar_label: 快速上手
 ---
 
-import QuickStartExample from '@site/src/components/QuickStartExample'
-
 ## 安装
 
 安装核心包：
 
-```bash npm2yarn
+```bash
 npm i entity-form
 ```
 
 安装组件包：
 
-```bash npm2yarn
+```bash
 npm i entity-form-pristine
 ```
 
@@ -36,12 +34,12 @@ import { Input, registerAll } from 'entity-form-pristine'
 
 registerAll()
 
-@entity('user-entity')
+@entity('User')
 export class User {
   @field({ value: '', component: 'Input' })
   username: string
 
-  @field({ value: '', component: 'Input', type = 'passord' })
+  @field({ value: '', component: 'Input', type: 'passord' })
   password: string
 
   onSubmit(values: User) {
@@ -60,5 +58,3 @@ export default () => {
   return <EntityForm entity={User}></EntityForm>
 }
 ```
-
-<QuickStartExample />
