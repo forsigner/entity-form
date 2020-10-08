@@ -61,7 +61,7 @@ export class HandlerBuilder<T> {
   }
 
   private updateBeforeSubmit(errors: Errors<T>) {
-    const { actions, setState } = this
+    const { setState } = this
     const state = getState(this.key) as FormState<T>
 
     // update state
@@ -76,14 +76,14 @@ export class HandlerBuilder<T> {
 
       if (!isValid) {
         const erorr = this.config.onError || this.instance.onError
-        erorr && erorr(draft.errors, { state, actions })
+        erorr && erorr(draft.errors)
       }
 
       if (isValid) {
         const submit = this.config.onSubmit || this.instance.onSubmit
 
         const finalValues = this.handleVisibleValues({ ...original(draft.values) }, draft.visibles)
-        submit && submit(finalValues, { state, actions })
+        submit && submit(finalValues)
       }
     })
 

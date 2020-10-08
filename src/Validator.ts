@@ -79,7 +79,7 @@ export class Validator<T> {
     }
 
     try {
-      return await validateFnErrors
+      return await validateFnErrors as any
     } catch {
       return {}
     }

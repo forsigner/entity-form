@@ -5,6 +5,10 @@ import { FieldConfig, FieldMetadata } from '../types'
 
 export declare type TypeFn = (returns?: void) => any
 
+/**
+ *
+ * @param config  field config
+ */
 export function field<ComponentProps>(config?: FieldConfig<ComponentProps>): PropertyDecorator
 export function field<ComponentProps>(
   typeFn?: TypeFn,

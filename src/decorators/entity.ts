@@ -1,6 +1,11 @@
 import { entityStore } from '../stores/entityStore'
 import { EntityConfig } from '../types'
 
+/**
+ *
+ * @param name unique entity name
+ * @param entityConfig form config
+ */
 export function entity(
   name: string,
   entityConfig = {

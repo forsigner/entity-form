@@ -213,12 +213,22 @@ export interface Handlers extends FieldHandlers {
 // }
 
 export interface Result<T = any> {
-  entity: EntityType<T>
+  /** Form state */
   state: FormState<T>
-  handlers: Handlers
+
+  /** Actions to update state */
   actions: Actions<T>
+
+  /** Some helpers */
   helpers: HelperBuilder<T>
+
+  /** Form handlers, handleChange,handleBlur,handleSubmit */
+  handlers: Handlers
+
+  /** Builder to build handlers */
   handlerBuilder: HandlerBuilder<T>
+
+  entity: EntityType<T>
   instance: T
   fieldsMetadata: FieldMetadata[]
 }
@@ -237,15 +247,37 @@ export interface ArrayHelper {
 }
 
 export interface Config<T = any> {
+  /** form unique name, optional */
   name?: string
-  initValues?: (defaultValues: T) => T
-  validate?: (values: T) => Errors<T>
-  onSubmit?: (values: T, { state, actions }: { state: FormState<T>; actions: Actions<T> }) => any
-  onError?: (
-    errors: Errors<T>,
-    { state, actions }: { state: FormState<T>; actions: Actions<T> },
-  ) => any
-  onReset?: ({ state, actions }: { state: FormState<T>; actions: Actions<T> }) => any
+
+  /**
+   * Set form initialValues, it will override field initial value
+   * @param defaultValues default values from field config
+   */
+  initValues?(defaultValues: T): T
+
+  /**
+   * form-level validation
+   * @param values current values
+   */
+  validate?(values: T): Errors<T>
+
+  /**
+   * callback when form submit
+   * @param values current values
+   */
+  onSubmit?(values: T): any
+
+  /**
+   * callback when form error
+   * @param errors current errors
+   */
+  onError?(errors: Errors<T>): any
+
+  /**
+   * callback when reset form
+   */
+  onReset?(): any
 }
 
 export interface Variables {
@@ -278,24 +310,50 @@ export interface EntityStoreValue {
 
 export interface FieldConfig<ComponentProps = any> {
   label?: string
+
+  /** shoud show label */
   showLabel?: boolean
+
+  /** field description */
   description?: string
 
+  /** initial value */
   value?: any
+
+  /** initial display */
   display?: boolean
+
+  /** initial visible */
   visible?: boolean
+
+  /** initial status */
   status?: Status
+
+  /** initial error */
   error?: string
+
+  /** initial  touched*/
   touched?: boolean
+
+  /** initial  disabled*/
   disabled?: boolean
+
+  /** initial pendding */
   pendding?: boolean
+
+  /** initial enum */
   enum?: Enum | (() => Enum)
+
+  /** initial data */
   data?: any
 
+  /** required for ui */
   required?: boolean
+
   order?: number
 
   component?: any
+
   componentProps?: ComponentProps
 
   gql?: GqlConfig
