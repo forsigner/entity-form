@@ -50,7 +50,10 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
     setEnums: actionBuilder.setEnums,
     setFormState: setState,
     setSubmitting: actionBuilder.setSubmitting,
-    resetForm: actionBuilder.resetForm,
+    resetForm() {
+      actionBuilder.resetForm()
+      if (config.onReset) config.onReset()
+    },
     submitForm: () => {}, // initial
     validateForm: actionBuilder.validateForm,
     validateField: actionBuilder.validateField,
