@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/forsigner/entity-form/compare/v0.1.0...v0.1.1) (2020-10-08)
+
+
+### Features
+
+* support onReset callback ([4dae21c](https://github.com/forsigner/entity-form/commit/4dae21c61e75372a976c7fe4794b1831453a9450))
+
+
+### Bug Fixes
+
+* install react-fast-compare ([77d09d3](https://github.com/forsigner/entity-form/commit/77d09d39df607826fba66794f9ef9d2d7f6b4031))
+
 ## [0.1.0](https://github.com/forsigner/entity-form/compare/v0.0.2...v0.1.0) (2020-10-07)
 
 
