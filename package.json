@@ -1,61 +1,49 @@
 {
-  "version": "0.1.1",
   "name": "entity-form",
-  "author": "forsigner",
-  "module": "dist/entity-form.esm.js",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">=10"
-  },
+  "version": "0.0.1",
+  "description": "Make Form easy",
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "release": "standard-version"
+    "dev": "lerna run --parallel --stream dev",
+    "test": "lerna run --parallel --stream test",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "publish": "lerna publish --force-publish=*"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/",
+      "/.history/"
+    ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
-  "prettier": {
-    "semi": false,
-    "tabWidth": 2,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "printWidth": 100
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forsigner/entity-form.git"
+  },
+  "author": "@forsigner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/forsigner/entity-form/issues"
+  },
+  "homepage": "https://github.com/forsigner/entity-form#readme",
   "devDependencies": {
-    "@types/is-promise": "^2.1.0",
-    "@types/lodash.get": "^4.4.6",
-    "@types/lodash.set": "^4.3.6",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@types/jest": "^26.0.14",
     "husky": "^4.3.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "standard-version": "^9.0.0",
-    "tsdx": "^0.14.0",
-    "tslib": "^2.0.1",
+    "jest": "^26.4.2",
+    "lerna": "^3.22.1",
+    "prettier": "^2.1.2",
     "typescript": "^4.0.3"
-  },
-  "dependencies": {
-    "class-transformer": "^0.3.1",
-    "class-validator": "^0.12.2",
-    "deepmerge": "^4.2.2",
-    "is-promise": "^4.0.0",
-    "lodash.get": "^4.4.2",
-    "lodash.set": "^4.3.2",
-    "react-fast-compare": "^3.2.0",
-    "reflect-metadata": "^0.1.13",
-    "stook": "^0.4.0"
   }
 }
