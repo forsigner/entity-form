@@ -1,26 +1,35 @@
 import React from 'react'
+import { EntityForm, entity, field } from 'entity-form'
+import { registerAll } from 'entity-form-pristine'
 
-// import { EntityForm, entity, field } from 'entity-form'
+registerAll()
 
-// @entity('user-entity')
-// class User {
-//   @field({ value: '', component: 'Input' })
-//   username: string
+@entity('user-entity')
+class User {
+  @field({
+    label: '用户名',
+    value: '',
+    component: 'Input',
+  })
+  username: string
 
-//   @field({ value: '', component: 'Input', type = 'passord' })
-//   password: string
+  @field({
+    label: '密码',
+    value: '',
+    component: 'Input',
+    type: 'password',
+  })
+  password: string
 
-//   onSubmit(values: User) {
-//     alert(JSON.stringify(values, null, 2))
-//   }
-// }
+  onSubmit(values: User) {
+    alert(JSON.stringify(values, null, 2))
+  }
+}
 
-export default () => {
+export const QuickStartExample = () => {
   return (
     <div>
-      <div>....QuickStartExample</div>
-      <div>....QuickStartExample</div>
-      {/* <EntityForm entity={User}></EntityForm> */}
+      <EntityForm entity={User}></EntityForm>
     </div>
   )
 }

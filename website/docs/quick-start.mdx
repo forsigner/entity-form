@@ -4,6 +4,8 @@ title: 快速上手
 sidebar_label: 快速上手
 ---
 
+import { QuickStartExample } from '../src/components/QuickStartExample'
+
 ## 安装
 
 安装核心包：
@@ -28,18 +30,25 @@ npm i entity-form-pristine
 
 ### 第一步: 定义实体
 
-```ts title="user-entity.ts"
+```ts title="user.entity.ts"
 import { entity, field } from 'entity-form'
-import { Input, registerAll } from 'entity-form-pristine'
+import { registerAll } from 'entity-form-pristine'
 
 registerAll()
 
 @entity('User')
-export class User {
-  @field({ value: '', component: 'Input' })
+class User {
+  @field({
+    label: '用户名',
+    component: 'Input',
+  })
   username: string
 
-  @field({ value: '', component: 'Input', type: 'passord' })
+  @field({
+    label: '密码',
+    component: 'Input',
+    type: 'password',
+  })
   password: string
 
   onSubmit(values: User) {
@@ -58,3 +67,8 @@ export default () => {
   return <EntityForm entity={User}></EntityForm>
 }
 ```
+
+
+### 效果
+
+<QuickStartExample />

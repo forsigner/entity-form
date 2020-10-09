@@ -3,6 +3,7 @@ module.exports = {
   tagline: 'React Form is easy',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
+  onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
   organizationName: 'forsigner', // Usually your GitHub org/user name.
   projectName: 'entity-form', // Usually your repo name.
@@ -11,15 +12,16 @@ module.exports = {
       theme: require('prism-react-renderer/themes/github'),
       darkTheme: require('prism-react-renderer/themes/dracula'),
     },
+    sidebarCollapsible: false,
     navbar: {
-      title: 'Entity Form',
+      title: 'My Site',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
       },
-      links: [
+      items: [
         {
-          to: 'docs/quick-start',
+          to: 'docs/',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
@@ -40,11 +42,11 @@ module.exports = {
           items: [
             {
               label: 'Style Guide',
-              to: 'docs/doc1',
+              to: 'docs/',
             },
             {
               label: 'Second Doc',
-              to: 'docs/doc2',
+              to: 'docs/doc2/',
             },
           ],
         },
@@ -59,10 +61,14 @@ module.exports = {
               label: 'Discord',
               href: 'https://discordapp.com/invite/docusaurus',
             },
+            {
+              label: 'Twitter',
+              href: 'https://twitter.com/docusaurus',
+            },
           ],
         },
         {
-          title: 'Social',
+          title: 'More',
           items: [
             {
               label: 'Blog',
@@ -72,38 +78,25 @@ module.exports = {
               label: 'GitHub',
               href: 'https://github.com/facebook/docusaurus',
             },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
           ],
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
     },
   },
-  themes: ['@docusaurus/theme-live-codeblock'],
-
-  plugins: [
-    [
-      '@docusaurus/plugin-ideal-image',
-      {
-        quality: 70,
-        max: 1030, // max resized image's size.
-        min: 640, // min resized image's size. if original is lower, use that size.
-        steps: 2, // the max number of images generated between min and max (inclusive)
-      },
-    ],
-  ],
   presets: [
     [
       '@docusaurus/preset-classic',
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
-          remarkPlugins: [require('./src/plugins/remark-npm2yarn')],
+          // Please change this to your repo.
+          editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
+        },
+        blog: {
+          showReadingTime: true,
+          // Please change this to your repo.
+          editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -111,4 +104,4 @@ module.exports = {
       },
     ],
   ],
-};
+}
