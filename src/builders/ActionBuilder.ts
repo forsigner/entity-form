@@ -12,6 +12,8 @@ import {
   DisabledsFn,
   ErrorsFn,
   EnumsFn,
+  DatasFn,
+  DisplaysFn,
 } from '../types'
 import { Validator } from '../Validator'
 import { checkValid, touchAll } from '../utils'
@@ -69,6 +71,14 @@ export class ActionBuilder<T> {
 
   setDisableds = (fn: DisabledsFn<T>) => {
     this.runFn(fn, 'disableds')
+  }
+
+  setDisplays = (fn: DisplaysFn<T>) => {
+    this.runFn(fn, 'displays')
+  }
+
+  setDatas = (fn: DatasFn<T>) => {
+    this.runFn(fn, 'datas')
   }
 
   setVisibles = (fn: VisiblesFn<T>) => {

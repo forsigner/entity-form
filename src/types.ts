@@ -152,28 +152,42 @@ export interface FormState<T = any> {
 }
 
 export type ValuesFn<T> = Partial<T> | ((prev: T) => T) | ((prev: T) => void)
+
 export type TouchedsFn<T> =
   | Toucheds<T>
   | ((toucheds: Toucheds<T>) => Toucheds<T>)
   | ((toucheds: Toucheds<T>) => void)
+
 export type DisabledsFn<T> =
   | Disableds<T>
   | ((disableds: Disableds<T>) => Disableds<T>)
   | ((disableds: Disableds<T>) => void)
+
 export type VisiblesFn<T> =
   | Visibles<T>
   | ((visibles: Visibles<T>) => Visibles<T>)
   | ((visibles: Visibles<T>) => void)
+
+export type DatasFn<T> = Datas<T> | ((datas: Datas<T>) => Datas<T>) | ((datas: Datas<T>) => void)
+
+export type DisplaysFn<T> =
+  | Displays<T>
+  | ((datas: Displays<T>) => Displays<T>)
+  | ((datas: Displays<T>) => void)
+
 export type ErrorsFn<T> =
   | Errors<T>
   | ((errors: Errors<T>) => Errors<T>)
   | ((errors: Errors<T>) => void)
+
 export type EnumsFn<T> = Enums<T> | ((enums: Enums<T>) => Enums<T>) | ((enums: Enums<T>) => void)
 
 export interface Actions<T = any> {
   setValues(fn: ValuesFn<T>): void
   setToucheds(fn: TouchedsFn<T>): void
   setDisableds(fn: DisabledsFn<T>): void
+  setDisplays(fn: DisplaysFn<T>): void
+  setDatas(fn: DatasFn<T>): void
   setVisibles(fn: VisiblesFn<T>): void
   setErrors(fn: ErrorsFn<T>): void
   setEnums(fn: EnumsFn<T>): void

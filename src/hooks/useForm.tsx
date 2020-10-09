@@ -44,7 +44,9 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
   const actions: Actions<T> = {
     setValues: actionBuilder.setValues,
     setToucheds: actionBuilder.setToucheds,
+    setDatas: actionBuilder.setDatas,
     setDisableds: actionBuilder.setDisableds,
+    setDisplays: actionBuilder.setDisplays,
     setErrors: actionBuilder.setErrors,
     setVisibles: actionBuilder.setVisibles,
     setEnums: actionBuilder.setEnums,

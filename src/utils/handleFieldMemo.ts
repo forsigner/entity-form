@@ -14,6 +14,8 @@ export function handleFieldMemo(prev: FieldProps, next: FieldProps) {
     toucheds: t1,
     disableds: d1,
     visibles: vis1,
+    displays: dis1,
+    datas: datas1,
     enums: enums1,
   } = prev.result.state
   const {
@@ -22,6 +24,8 @@ export function handleFieldMemo(prev: FieldProps, next: FieldProps) {
     values: val2,
     toucheds: t2,
     disableds: d2,
+    displays: dis2,
+    datas: datas2,
     visibles: vis2,
     enums: enum2,
   } = next.result.state
@@ -33,6 +37,8 @@ export function handleFieldMemo(prev: FieldProps, next: FieldProps) {
     get(d1, n1) === get(d2, n2) &&
     get(vis1, n1) === get(vis2, n2) &&
     get(err1, n1) === get(err2, n2) &&
+    get(dis1, n1) === get(dis2, n2) &&
+    get(datas1, n1) === get(datas2, n2) &&
     isEqual(get(enums1, n1), get(enum2, n2))
   ) {
     return true
