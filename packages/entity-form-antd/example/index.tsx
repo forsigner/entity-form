@@ -7,8 +7,7 @@ import { CustomLayout } from './components/CustomLayout';
 import { CustomValidateDecorator } from './components/CustomValidateDecorator';
 import { AsyncValidate } from './components/AsyncValidate';
 
-// import { registerAll } from './entity-form-pristine'
-import { registerAll } from './entity-form-antd';
+import { registerAll } from './entity-form-antd'
 
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 

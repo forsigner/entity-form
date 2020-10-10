@@ -7,7 +7,7 @@ import { FormItem } from '../FormItem'
 export const RangePicker: FC<RegisterFieldProps> = props => {
   const { componentProps = {} } = props.field
   const { RangePicker } = DatePicker
-  const value = props.value.map((i: Date) => moment())
+  const value = props.value.map((i: Date) => moment(i))
 
   function onChange(value: any) {
     const dateValue = value.map((i: Moment) => i.toDate())

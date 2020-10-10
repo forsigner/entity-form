@@ -34,8 +34,8 @@ const GqlItem: FC<RegisterFieldProps> = props => {
   return (
     <FormItem {...props}>
       <AntdMentions {...valueProps} {...(props.field.componentProps || {})}>
-        {optionsData.map((item, i) => (
-          <Option key={i} value={item.value}>
+        {optionsData.map((item) => (
+          <Option key={item.label} value={item.value}>
             {item.label}
           </Option>
         ))}
@@ -55,8 +55,8 @@ export const Mentions: FC<RegisterFieldProps> = props => {
   return (
     <FormItem {...props}>
       <AntdMentions>
-        {options.map((item, i) => (
-          <Option key={i} value={item.value}>
+        {options.map((item) => (
+          <Option key={item.label} value={item.value}>
             {item.label}
           </Option>
         ))}
