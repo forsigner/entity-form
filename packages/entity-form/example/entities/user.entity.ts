@@ -1,4 +1,4 @@
-import { entity, field } from '../..'
+import { entity, field } from '../../../../dist'
 import {
   IsNotEmpty,
   IsEmail,

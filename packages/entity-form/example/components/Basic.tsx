@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { EntityForm, useForm } from '../..'
+import { EntityForm, useForm } from '../../../../dist'
 import { UserEntity } from '../entities/user.entity'
 
 export const Basic = () => {

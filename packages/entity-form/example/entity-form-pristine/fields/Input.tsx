@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { RegisterFieldProps } from '../../..'
+import { RegisterFieldProps } from '../../../../../dist'
 
 export const Input: FC<RegisterFieldProps> = props => {
   const { result, handleBlur, handleChange, value, name } = props

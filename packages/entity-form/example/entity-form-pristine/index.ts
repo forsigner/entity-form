@@ -1,4 +1,4 @@
-import { registerField, registerReset, registerSubmit, registerForm } from '../..'
+import { registerField, registerReset, registerSubmit, registerForm } from '../../../../dist'
 import { Input } from './fields/Input'
 import { Submit } from './fields/Submit'
 import { Form } from './fields/Form'
