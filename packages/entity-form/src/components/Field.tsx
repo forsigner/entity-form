@@ -74,6 +74,7 @@ export const Field: FC<Props> = memo(({ name = '', component, componentProps, me
     field,
     result,
   }
+
   if (componentProps) props['componentProps'] = componentProps
 
   return <FieldContent {...props}></FieldContent>

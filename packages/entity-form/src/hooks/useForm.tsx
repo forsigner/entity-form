@@ -61,13 +61,19 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
     validateField: actionBuilder.validateField,
   }
 
+  const fields = fieldStore.get(instance)
+  const fieldsMetadata = getFieldMetadata(fields)
+  const helpers = new HelperBuilder(name.current, actions)
+
   const handlerBuilder = new HandlerBuilder(
     name.current,
     actions,
+    helpers,
     setState,
     validator,
     config,
     instance,
+    fieldsMetadata,
   )
   const submitHandler = handlerBuilder.createSubmitHandler()
 
@@ -79,9 +85,6 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
 
   actions.submitForm = submitHandler
 
-  const helpers = new HelperBuilder(name.current, actions)
-  const fields = fieldStore.get(instance)
-
   const result: Result<T> = {
     entity: Entity,
     state,
@@ -90,7 +93,7 @@ export function useForm<T = any>(Entity: EntityType<T>, config: Config<T> = {}) 
     helpers,
     handlerBuilder,
     instance,
-    fieldsMetadata: getFieldMetadata(fields),
+    fieldsMetadata,
   }
 
   forms.setResult(name.current, result)

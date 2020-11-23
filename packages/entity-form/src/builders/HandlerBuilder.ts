@@ -11,16 +11,19 @@ import { touchAll } from '../utils/touchAll'
 import { isTouched } from '../utils/isTouched'
 import { Config } from '../types'
 import { getState } from 'stook'
+import { HelperBuilder } from './HelperBuilder'
 
 export class HandlerBuilder<T> {
   constructor(
     private key: string,
     private actions: Actions<T>,
+    private helpers: HelperBuilder<T>,
     private setState: any,
     private validator: Validator<T>,
     private config: Config<T>,
     // TODO: handle any
     private instance: any,
+    private fieldsMetadata: any,
   ) {}
 
   private flatObject(obj: any, parentKey = '', result = {} as any) {
@@ -65,7 +68,7 @@ export class HandlerBuilder<T> {
     const state = getState(this.key) as FormState<T>
 
     // update state
-    const nextState = produce<FormState<T>, FormState<T>>(state, draft => {
+    const nextState = produce<FormState<T>, FormState<T>>(state, (draft) => {
       draft.errors = errors
       const isValid = checkValid(draft.errors)
       draft.valid = isValid
@@ -139,11 +142,22 @@ export class HandlerBuilder<T> {
       let newState: FormState<T>
 
       // setValues first，do not block ui
-      newState = produce<FormState<T>, FormState<T>>(state, draft => {
+      newState = produce<FormState<T>, FormState<T>>(state, (draft) => {
         set(draft.values as any, fieldName, value)
       })
 
       setState({ ...newState })
+
+      // TODO: too magic
+      const field = get(this.fieldsMetadata, fieldName.replace(/\[.*\]/, '[0]'))
+      if (field.onChange) {
+        field.onChange({
+          value,
+          state: newState,
+          helper: this.helpers,
+          actions: this.actions,
+        })
+      }
 
       // validate only touched
       if (!isTouched(state.toucheds, fieldName)) return
@@ -153,7 +167,7 @@ export class HandlerBuilder<T> {
 
       if (isEqual(errors, state.errors)) return
 
-      const nextState = produce<FormState<T>, FormState<T>>(newState, draft => {
+      const nextState = produce<FormState<T>, FormState<T>>(newState, (draft) => {
         // check from is valid
         draft.errors = errors
         draft.valid = checkValid(draft.errors)

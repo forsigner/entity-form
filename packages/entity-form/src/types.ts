@@ -184,13 +184,28 @@ export type EnumsFn<T> = Enums<T> | ((enums: Enums<T>) => Enums<T>) | ((enums: E
 
 export interface Actions<T = any> {
   setValues(fn: ValuesFn<T>): void
+  setValues<C>(fn: ValuesFn<C>): void
+
   setToucheds(fn: TouchedsFn<T>): void
+  setToucheds<C>(fn: TouchedsFn<C>): void
+
   setDisableds(fn: DisabledsFn<T>): void
+  setDisableds<C>(fn: DisabledsFn<C>): void
+
   setDisplays(fn: DisplaysFn<T>): void
+  setDisplays<C>(fn: DisplaysFn<C>): void
+
   setDatas(fn: DatasFn<T>): void
+  setDatas<C>(fn: DatasFn<C>): void
+
   setVisibles(fn: VisiblesFn<T>): void
+  setVisibles<C = any>(fn: VisiblesFn<C>): void
+
   setErrors(fn: ErrorsFn<T>): void
+  setErrors<C>(fn: ErrorsFn<C>): void
+
   setEnums(fn: EnumsFn<T>): void
+  setEnums<C>(fn: EnumsFn<C>): void
 
   setFormState: Dispatch<Action<FormState<T>>>
 
@@ -322,6 +337,12 @@ export interface EntityStoreValue {
   entityConfig: EntityConfig
 }
 
+export interface EffectOptions<T = any> {
+  value: any
+  helpes: HelperBuilder<T>
+  actions: Actions<T>
+}
+
 export interface FieldConfig<ComponentProps = any> {
   label?: string
 
@@ -372,7 +393,9 @@ export interface FieldConfig<ComponentProps = any> {
 
   gql?: GqlConfig
 
-  onChange?: (...args: any[]) => any
+  onChange?: <T>(options: EffectOptions<T>) => any
+
+  onBlur?: <T>(options: EffectOptions<T>) => any
 
   [key: string]: any
 }
