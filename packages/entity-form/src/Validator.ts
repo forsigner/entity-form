@@ -3,11 +3,12 @@ import { validateOrReject, ValidationError } from 'class-validator'
 import isPromise from 'is-promise'
 import deepmerge from 'deepmerge'
 import { plainToClass } from 'class-transformer'
+import get from 'lodash.get'
 import set from 'lodash.set'
 import { Errors, FormState, Config } from './types'
 
 export class Validator<T> {
-  constructor(private key: string, private Model: any, private config: Config<T>) {}
+  constructor(private formName: string, private Model: any, private config: Config<T>) {}
 
   private getKey(parentKey: string, property: any) {
     if (!parentKey) return property
@@ -25,6 +26,11 @@ export class Validator<T> {
     errors: any = {},
     parentKey: string = '',
   ): Errors<T> {
+    if (!Array.isArray(validateMetaErrors)) {
+      console.warn(validateMetaErrors)
+      return {}
+    }
+
     for (const error of validateMetaErrors) {
       let { property, value } = error
 
@@ -55,7 +61,7 @@ export class Validator<T> {
 
   // class-validator validate
   private async runValidateMeta() {
-    const state = getState(this.key) as FormState<T>
+    const state = getState(this.formName) as FormState<T>
     const values: any = plainToClass(this.Model, state.values)
     try {
       await validateOrReject(values)
@@ -67,7 +73,7 @@ export class Validator<T> {
 
   private async runValidateFn(): Promise<Errors<T>> {
     const { config } = this
-    const state = getState(this.key) as FormState<T>
+    const state = getState(this.formName) as FormState<T>
     if (!config.validate) return {}
 
     // function validate
@@ -79,14 +85,25 @@ export class Validator<T> {
     }
 
     try {
-      return await validateFnErrors as any
+      return (await validateFnErrors) as any
     } catch {
       return {}
     }
   }
 
+  /** TODO: traverse */
+  filterInvisible(errors: any) {
+    const newErrors: any = {}
+    const { visibles } = getState(this.formName) as FormState<T>
+    for (const key in errors) {
+      if (get(visibles, key)) newErrors[key] = errors[key]
+    }
+    return newErrors
+  }
+
   validateForm = async (): Promise<Errors<T>> => {
     const [error1, error2] = await Promise.all([this.runValidateMeta(), this.runValidateFn()])
-    return deepmerge<Errors<T>>(error1, error2)
+    const errors = deepmerge<Errors<T>>(error1, error2)
+    return this.filterInvisible(errors)
   }
 }
