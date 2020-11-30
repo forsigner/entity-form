@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": false,
+    "allowSyntheticDefaultImports": true,
     "target": "es5",
     "module": "commonjs",
     "jsx": "react",
@@ -14,7 +14,13 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "sourceMap": true,
-    "lib": ["es2015", "es2016", "dom"],
-    "types": ["node"]
+    "lib": [
+      "es2015",
+      "es2016",
+      "dom"
+    ],
+    "types": [
+      "node"
+    ]
   }
 }

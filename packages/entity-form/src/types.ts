@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component, FunctionComponent } from 'react'
 import { Dispatch, Action } from 'stook'
 import { HandlerBuilder } from './builders/HandlerBuilder'
 import { HelperBuilder } from './builders/HelperBuilder'
@@ -343,6 +343,15 @@ export interface EffectOptions<T = any> {
   actions: Actions<T>
 }
 
+type Components =
+  | 'Input'
+  | 'InputNumber'
+  | 'CheckboxGroup'
+  | 'RadioGroup'
+  | ({} & string)
+  | FunctionComponent
+  | Component
+
 export interface FieldConfig<ComponentProps = any> {
   label?: string
 
@@ -387,7 +396,7 @@ export interface FieldConfig<ComponentProps = any> {
 
   order?: number
 
-  component?: any
+  component?: Components
 
   componentProps?: ComponentProps
 

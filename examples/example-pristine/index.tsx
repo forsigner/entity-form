@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import * as ReactDOM from 'react-dom'
 import { IsNotEmpty } from 'class-validator'
 import { entity, field, EntityForm, Field, useForm } from 'entity-form'
