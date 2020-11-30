@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.3.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -30,7 +30,7 @@
   "devDependencies": {
     "@types/react": "^16.9.51",
     "@types/react-dom": "^16.9.8",
-    "entity-form": "^0.1.1",
+    "entity-form": "^0.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "tsdx": "^0.14.0",

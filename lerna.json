@@ -1,8 +1,6 @@
 {
   "packages": [
-    "packages/*",
-    "examples/*",
-    "website"
+    "packages/*"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
@@ -17,5 +15,5 @@
       "registry": "http://registry.npmjs.org"
     }
   },
-  "version": "0.1.1"
+  "version": "0.3.0"
 }
