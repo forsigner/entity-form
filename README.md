@@ -1,5 +1,3 @@
-
-
 # Entity Form
 
 ## 安装
@@ -15,18 +13,18 @@ npm i entity-form
 ### 第一步: 定义实体
 
 ```ts
-import { entity, field } from "entity-form";
+import { entity, field } from 'entity-form'
 
-@entity("user-entity")
+@entity('user-entity')
 export class User {
-  @field({ value: "", component: "Input" })
-  username: string;
+  @field({ value: '', component: 'Input' })
+  username: string
 
-  @field({ value: "", component: "Input", type = "passord" })
-  password: string;
+  @field({ value: '', component: 'Input', type = 'passord' })
+  password: string
 
   onSubmit(values: User) {
-    alert(JSON.stringify(values, null, 2));
+    alert(JSON.stringify(values, null, 2))
   }
 }
 ```
@@ -34,10 +32,10 @@ export class User {
 ### 第二步: 绑定实体到 React 表单
 
 ```tsx
-import React from "react";
-import { EntityForm } from "entity-form";
+import React from 'react'
+import { EntityForm } from 'entity-form'
 
 export default () => {
-  return <EntityForm entity={User}></EntityForm>;
-};
+  return <EntityForm entity={User}></EntityForm>
+}
 ```

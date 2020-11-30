@@ -1,4 +1,4 @@
-import { entity, field } from '../../../../dist'
+import { entity, field } from 'entity-form'
 import {
   IsNotEmpty,
   IsEmail,

@@ -1,9 +1,8 @@
-import 'react-app-polyfill/ie11'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { IsNotEmpty } from 'class-validator'
-import { entity, field, EntityForm, Field, useForm } from '../.'
-import { registerAll } from '../.'
+import { entity, field, EntityForm, Field, useForm } from 'entity-form'
+import { registerAll } from 'entity-form-pristine'
 
 registerAll()
 

@@ -1,7 +1,15 @@
 {
   "name": "entity-form",
+  "private": true,
   "version": "0.0.1",
   "description": "Make Form easy",
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "examples/*",
+      "website"
+    ]
+  },
   "scripts": {
     "dev": "lerna run --parallel --stream dev",
     "test": "lerna run --parallel --stream test",

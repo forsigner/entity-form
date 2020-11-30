@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { RegisterFieldProps } from '../../../../../dist'
+import { RegisterFieldProps } from 'entity-form'
 
 export const Input: FC<RegisterFieldProps> = props => {
   const { result, handleBlur, handleChange, value, name } = props
