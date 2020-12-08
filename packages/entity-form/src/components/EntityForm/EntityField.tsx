@@ -3,12 +3,10 @@ import { Helper } from '../../Helper'
 import get from 'lodash.get'
 import { FieldProps, RegisterFieldProps } from '../../types'
 import { handleFieldMemo } from '../../utils'
-import { useFormContext } from '../../hooks/useFormContext'
 import { DefaultInput } from '../DefaultInput'
 
 export const EntityField: FC<FieldProps> = memo((props) => {
-  const { field } = props
-  const result = useFormContext()
+  const { field, result } = props
   const { handleBlur, handleChange } = result.handlers
 
   const fieldProps: RegisterFieldProps = {
